@@ -5,13 +5,30 @@ import React from 'react'
 import fetchWeather from './api/fetchWeather'
 import bg from '../assets/img/bg.jpg'
 import styles from "./index.module.scss";
-import { useEffect } from 'react/cjs/react.production.min'
 
 export default function Home() {
 
   const [query, setQuery]= useState('');
-  const [weather, setWeather] = useState({weather: "",cityInfoc: '',cityInfoMain: ''})
- 
+  const [weather, setWeather] = useState({})
+  const [date, setDate] = useState("")
+
+  
+  const getDate  = () => {
+    console.log("getting date")
+
+    const dateObj = new Date();
+    if (weather.description){
+      setDate(dateObj.toDateString());
+    }else{
+      setDate("")
+    }
+    return date;
+    
+  } 
+
+  React.useEffect(()=>{
+    getDate();
+  }, [weather])
 
   const search = async (e) =>{
     if(e.key === 'Enter'){
@@ -55,24 +72,31 @@ export default function Home() {
       />
 
 
-      <div className={styles.weatherCard}> 
-        <h2 className={styles.cityInfo}>
-          {weather.name}
+      <div className={styles.weatherCard}>
+        
+        <div>
+          <p className={styles.city}>
+            {weather.name}
+          </p>
+
+          <p className={styles.country}>{weather.country}</p>
+        </div>
+        
+        <p className={styles.date}>
+          {date}
+        </p>
+        <p className={styles.temp}>
+          {weather.temp }
+          <sup>{ date == "" ? "" : "o"}</sup>
           
-        </h2>
-        <p>{weather.country}</p>
-        <h2 className={styles.temp}>
-          {weather.temp}
-          
-        </h2>
+        </p>
 
         
-        <h2 className={styles.description}>
+        <p className={styles.description}>
           {weather.description}
-          
-        </h2>
+        </p>
 
-        <h2 className={styles.error}>{weather.error}</h2>
+        <p className={styles.error}>{weather.error}</p>
       
       </div>
 
