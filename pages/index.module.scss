@@ -20,7 +20,7 @@
     }
    
     label{
-        font-size: 40px;
+        font-size: 30px;
         margin-bottom: 30px;
         font-style: bold;
 
@@ -42,37 +42,41 @@
 .weatherCard{
     width: 90%;
     max-width: 500px;
-    height: 500px;
+    height: 60%;
     padding: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     background: rgba(0.0, 0.0, 0.0, 0.3) ;
     backdrop-filter: blur(10px);
     border-radius: 30px;
-    h2{
-        color: #ffffff;
-    }
+
     p{
-        font-size: 20px;
-        font-style: italic;
-        font-weight: bolder;
+        color: whitesmoke;
+        margin:20px 0;
+
     }
 
-    .cityInfo{
+    div{
+        display: flex;
+        margin: 20px;
+        p{
+            margin: 0;
+        }
+    }
+    
+    .city{
         font-size: 30px;
-        margin-bottom: 10px;
+        font-weight: bold;
     }
 
     .temp{
-        font-size: 50px;
-        font-style: bold;
-        margin-bottom: 30px;
+        font-size: 70px;
+        font-weight: bolder;
     }
 
     .description{
-        font-size: 26px;
-        margin-bottom: 40px;
+        font-size: 20px;
     }
 }
