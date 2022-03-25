@@ -42,6 +42,7 @@ export default function Home() {
           error: "",
           icon: data.weather[0].icon
         },)  : setWeather({
+          
           error: "can't fetch weather infomation check network connection and city name"
         })
       
@@ -106,7 +107,7 @@ export default function Home() {
 
 
 
-        <p className={styles.error}>{weather.error}</p>
+        <p className={styles.error}>{`${weather.error} ${weather.id}`}</p>
       
       </div>
 
