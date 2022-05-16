@@ -5,12 +5,11 @@ import Menu from "../components/Menu";
 export const AppContext = createContext()
 
 const reducer = (state, action) => {
-  
   return {...state, newsApiQuery: action}
 }
 
 
-const BaseLayout = ({children})=>{
+const BaseLayout = ({page})=>{
     const [showMenu, setShowMenu] = useState(false)
 
     const initialState = {
@@ -21,7 +20,7 @@ const BaseLayout = ({children})=>{
 
     
     return(
-        <AppContext.Provider value={{state:'state', dispatch: 'dispatch'}}>
+        <AppContext.Provider value={{state, dispatch}}>
             <Header setShowMenu={setShowMenu} showMenu={showMenu}   />
 
             <div style={{
@@ -31,10 +30,10 @@ const BaseLayout = ({children})=>{
                 justifyContent :'space-between'
             }}>
                 {
-                    showMenu ? <Menu/> : null
+                    showMenu ? <Menu /> : null
                 }
                 
-                {children}
+                {page}
             </div>
             
             

@@ -1,17 +1,25 @@
 import { useState, useEffect } from 'react'
 import styles from './menu.module.scss'
-
+import { AppContext } from '../../layouts/baselayout'
+import { useContext } from 'react'
 const Menuitem = ({
     icon,
-    val = '',
+    item = '',
     href = '',
     style={},
     active= false,
-    setActive
+    setActive,
+    dispatch,
+    query
 }) => {
 
+    const handleClick = () =>{
+        setActive(item.query)
+        dispatch(item.query)
+    }
+
     return(
-        <div className={styles.menu_item + ' ' + (active ? styles.active : '')} onClick={()=>setActive(navItems[val])} style={{
+        <div className={styles.menu_item + ' ' + (active ? styles.active : '')} onClick={handleClick} style={{
             ...style,
             
         }}>
@@ -20,7 +28,7 @@ const Menuitem = ({
             </div>
             
             
-            <p>{navItems[val]}</p>
+            <p>{item.text}</p>
 
         </div>
     )
@@ -28,38 +36,39 @@ const Menuitem = ({
 
 
 const navItems = {
-    top: 'Top stories',
-    covid: 'COVID-19',
-    nigeria: 'Nigeria',
-    world: 'World',
-    local: 'Your local News',
-    business: 'Business',
-    entertainment: 'Entertainment',
-    technology: 'Technology',
-    sports: 'Sports',
-    science: 'Science',
-    health: 'Health',
+    top: {text:'Top Stories', query: ''},
+    covid: {text:'COVID-19', query: 'covid'},
+    nigeria: {text:'NIGERIA', query: 'nigeria'},
+    world: {text:'World', query: 'world'},
+    local_news: {text:'Local News', query: 'localnews'},
+    business: {text:'Business', query: 'business'},
+    entertainment: {text:'Entertainment', query: 'entertainment'},
+    technology: {text:'Technology', query: 'technology'},
+    sports: {text:'Sports', query: 'sports'},
+    science: {text:'Science', query: 'science'},
+    health: {text:'Health', query: 'health'},
 
 }
 
 const Menu = () => {
-    const [active,setActive] = useState(navItems.top)
+    const appContext = useContext(AppContext)
+    const [active,setActive] = useState(appContext.state.newsApiQuery)
+    
 
-    useEffect(()=>{
-        console.log('active', active)
-    }, [active])
+
+    
     return(
         <div className={styles.menu + ' animate__animated animate__bounceInLeft'} data-aos="fade-right">
 
             {
-                Object.keys(navItems).map((key, index)=>{
-                    if (key === 'covid') return (
+                Object.values(navItems).map((item, index)=>{
+                    if (item.text === 'COVID-19') return (
                         <Menuitem
                             key={index} 
-                            val={key} 
-                            active={active === navItems[key]} 
+                            item={item} 
+                            active={active === item.query} 
                             setActive={setActive}
-
+                            dispatch={appContext.dispatch}
                             style={{
                                 padding: '10px',
                                 borderTop: '0.5px solid white',
@@ -72,9 +81,10 @@ const Menu = () => {
                     return (
                         <Menuitem
                             key={index} 
-                            val={key} 
-                            active={active === navItems[key]} 
+                            item={item} 
+                            active={active === item.query} 
                             setActive={setActive}
+                            dispatch={appContext.dispatch}
                         />
                     )
                 })

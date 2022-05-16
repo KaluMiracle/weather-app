@@ -6,13 +6,14 @@ const API_KEY = 'l7GzhkMBw38Y95WLopJ4nU9wnqjCRuLi'
 
 export default async function fetchNews(query) {
 
-  const URL = 'https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json'
-  
+  // const URL = 'https://api.nytimes.com/svc/mostpopular/v2/emailed/7.json'
+  const URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json'
+  // const URL = 'https://api.nytimes.com/svc/topstories/v2/'
   try{
     console.log("fetching news")
-    const {data} = await axios.get(URL,{
+    const {data} = await axios.get(URL ,{
       params: {
-        // q: query,
+        q: query,
         'api-key': API_KEY
       }
     });

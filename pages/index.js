@@ -13,7 +13,7 @@ import { useContext } from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-export default function Home() {
+function Home() {
 
   const  appContext = useContext(AppContext);
 
@@ -22,9 +22,9 @@ export default function Home() {
   
 
   const dateObj = new Date();
-  const [query, setQuery]= useState(appContext);
+  const [query, setQuery]= useState(appContext.state.newsApiQuery);
   const [weather, setWeather] = useState({status: 'd', results: []})
-  const [news, setNews] = useState({status: 'd'})
+  const [news, setNews] = useState({status: 'd', query: query})
   const [date, setDate] = useState(Date)
   const [icon, setIcon] = React.useState("")
 
@@ -50,25 +50,24 @@ export default function Home() {
 
 
   const getNews = async () =>{
-    console.log('query', appContext)
+    console.log('query', query)
    
-      const data = await fetchNews('');
+      const data = await fetchNews(query);
       
       data.status === 'OK' ? setNews({
-          ...data
+          ...data,
         })  : setNews({
           status: '',
-          
           error: "can't fetch News check network connection"
         })
 
 
+    
         
       
       
     
   }
-  const path = "M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"
 
  
 
@@ -77,17 +76,22 @@ export default function Home() {
     
     // weather.description ? setIcon(`https://openweathermap.org/img/wn/${weather.icon}@2x.png`) : setIcon("");
     AOS.init();
+    getWeather();
+    
+    
     getNews()
-    getWeather()
+    
     console.log('news',news)
+    setQuery(appContext.state.newsApiQuery)
     // console.log('weather', weather.results)
-  },[weather.name])
+  },[appContext.state.newsApiQuery, query, news.status])
 
   
 
   
   return (
-    <BaseLayout>
+    <>
+
       <div className={styles.index}>
       <Head>
         <title>Weather</title>
@@ -101,17 +105,18 @@ export default function Home() {
       
       
         {
-          news.results? 
+          news.response? 
             <div className={styles.news_container} data-aos="fade-up">
-              {news.results.map((article, index)=> {
+              {/* {query} */}
+              {news.response.docs.map((article, index)=> {
                 return (
                 
                   <div className={styles.news_card  + ' animate__animated animate__bounceInUp'} key={index} style={{
                     color:'white'
                   }}>
-                    <h3>{article.title}</h3>
+                    <h3>{article.headline.main}</h3>
                     <p>{article.abstract}</p>
-                    <a href={article.url}>read more</a>
+                    <a target={'_blank'} href={article.web_url} rel="noreferrer">read more</a>
                   </div>
                 )
               })}
@@ -172,12 +177,19 @@ export default function Home() {
 
     
     
-    </BaseLayout>
+    </>
 
     
   )
 }
 
+const Container = ()=>{
+  return(
+    <BaseLayout page={<Home/>}></BaseLayout>
+  )
+}
+
+export default Container
 
 {/* <label>Enter a city</label>
       <input type={"text"} className="search" 
