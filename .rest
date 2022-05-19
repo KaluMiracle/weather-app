@@ -1,0 +1,1 @@
+GET https://api.nytimes.com/svc/search/v2/articlesearch.json/?q=nigeria&api-key=l7GzhkMBw38Y95WLopJ4nU9wnqjCRuLi
