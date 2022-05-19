@@ -109,6 +109,8 @@ function Home() {
             <div className={styles.news_container} data-aos="fade-up">
               {/* {query} */}
               {news.response.docs.map((article, index)=> {
+                
+                // const image = article.multimedia[0]
                 return (
                 
                   <div className={styles.news_card  + ' animate__animated animate__bounceInUp'} key={index} style={{
@@ -116,7 +118,16 @@ function Home() {
                   }}>
                     <h3>{article.headline.main}</h3>
                     <p>{article.abstract}</p>
-                    <a target={'_blank'} href={article.web_url} rel="noreferrer">read more</a>
+                    <div>
+                      
+                    </div>
+                    { article.multimedia[0] ?
+                         <img   width='100%' alt='failed to load image' src={`https://www.nytimes.com/${article.multimedia[0].url}`} loading='lazy'></img>  : null
+                    }
+                    {
+                      article.abstract === article.lead_paragraph ? null : <p>{article.lead_paragraph}</p>
+                    }
+                    <a target={'_blank'} href={article.web_url} rel="noreferrer">Read more...</a>
                   </div>
                 )
               })}
