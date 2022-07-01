@@ -1,4 +1,5 @@
 import { useState, createContext, useReducer } from "react";
+import { useEffect } from "react";
 import Header from "../components/Header";
 import Menu from "../components/Menu";
 
@@ -9,18 +10,18 @@ const reducer = (state, action) => {
 }
 
 
-const BaseLayout = ({page})=>{
+const BaseLayout = ({page })=>{
     const [showMenu, setShowMenu] = useState(false)
 
     const initialState = {
-        newsApiQuery: ''
+        newsApiQuery: {text:'Top Stories', query: '', twitter: 'BBCBreaking'}
     }
 
     const [state, dispatch] = useReducer ( reducer , initialState)  
 
-    
+   
     return(
-        <AppContext.Provider value={{state, dispatch}}>
+        <AppContext.Provider value={{state, dispatch, setShowMenu}}>
             <Header setShowMenu={setShowMenu} showMenu={showMenu}   />
 
             <div style={{
@@ -30,7 +31,7 @@ const BaseLayout = ({page})=>{
                 justifyContent :'space-between'
             }}>
                 {
-                    showMenu ? <Menu /> : null
+                    showMenu ? <Menu setShowMenu={setShowMenu} /> : null
                 }
                 
                 {page}
