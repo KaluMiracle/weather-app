@@ -10,7 +10,7 @@ const reducer = (state, action) => {
 }
 
 
-const BaseLayout = ({page })=>{
+const BaseLayout = ({children })=>{
     const [showMenu, setShowMenu] = useState(false)
 
     const initialState = {
@@ -34,7 +34,7 @@ const BaseLayout = ({page })=>{
                     showMenu ? <Menu setShowMenu={setShowMenu} /> : null
                 }
                 
-                {page}
+                {children}
             </div>
             
             

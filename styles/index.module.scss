@@ -5,12 +5,12 @@
     overflow-y: scroll;
     padding: 0 10px;
     margin: 0;
-    padding-top: 80px;
+    padding-top: 70px;
     display: flex;
-
-    
-    // justify-content: space-between;
-    
+    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow-y: scroll;
     .timeline-Tweet {
         color: white;
     }
@@ -45,16 +45,17 @@
         color: whitesmoke;;
     }
 
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 740px) {
        width: 100%;
        flex-grow: 2; 
         // padding: 0 10%;
         padding: 0 50px;
-       padding-top: 100px;
-       justify-content: space-between;
-       
+       padding-top: 90px;
+       flex-wrap: wrap;
        .news_container{
-           flex-grow: 0;
+            width: 30%;
+            flex-grow: 2;
+           margin-right: 30px;
        }
     }
     ::-webkit-scrollbar{
@@ -130,36 +131,69 @@
 }
 
 .news_container{
-    width: 60%;
-    flex-grow: 2;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
     overflow-y: scroll;
     scroll-behavior: smooth;
     p{
+        font-size: medium;
         color: whitesmoke;
-    }
+        height: max-content;
 
+        
+    }
+    
+    
+
+    
+}
+.error_container{
+    width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center; 
+   p{
+    font-size: small;
+   }
+}
+.sad_face{
+    width: 150px;
+    
+}
+.reload{
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+    
+}
+.reload:hover{
+    color: #8ab4f8;
+    
+}
+.loading_container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
     
 }
 .loading {
     width: 40px;
     height: 40px;
     position: relative;
-    animation: spin infinite 3s linear;
+    animation: spin infinite 1s linear;
     margin-bottom: 40px;
     
 }
 .news_card{
     width: 100%;
-    max-width: 700px;
     border: 1px solid #2a4165;;
     padding: 5px;
+    max-width: 800px;
     padding-bottom: 20px;
     margin-bottom: 40px;
-    margin-right: 5%;
     
     h3{
         font-size: 20px;
@@ -182,11 +216,12 @@
     @media screen and (min-width: 700px) {
         padding: 10px;
     }
+    
 }
 
 .container_2{
     width: 35%;
-    height: 100vh;
+    height: 100%;
     overflow-y: scroll;
     
     

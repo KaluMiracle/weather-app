@@ -28,10 +28,16 @@ const Header = ({
                 </svg>
             </div> */}
 
+            <div style={{
+                width: '90%',
+                display: 'flex',
+                justifyContent: 'space-between'
+            }}>
+                <h1>News</h1>
+                <p className={styles.smallText}>Powered by New York Times API</p>
+            </div>
             
-            <h1>News</h1>
             <div className={styles.search_container}>
-
             </div>
         </div>
     )

@@ -50,10 +50,7 @@ const Menu = ({
 }) => {
     const appContext = useContext(AppContext)
     const [active,setActive] = useState(appContext.state.newsApiQuery)
-    
-
-
-    
+        
     return(
         <div className={styles.menu + ' animate__animated animate__bounceInLeft'} data-aos="fade-right">
 
@@ -63,7 +60,7 @@ const Menu = ({
                         <Menuitem
                             key={index} 
                             item={item} 
-                            active={active === item.query} 
+                            active={active.query === item.query} 
                             setActive={setActive}
                             dispatch={appContext.dispatch}
                             style={{
@@ -80,7 +77,7 @@ const Menu = ({
                         <Menuitem
                             key={index} 
                             item={item} 
-                            active={active === item.query} 
+                            active={active.query === item.query} 
                             setActive={setActive}
                             dispatch={appContext.dispatch}
                             setShowMenu={setShowMenu}

@@ -1,4 +1,4 @@
-import styles from '../../pages/index.module.scss';
+import styles from '../../styles/index.module.scss';
 
 const NewsCard = ({
 
