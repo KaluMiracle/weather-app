@@ -3,19 +3,18 @@ import styles from './menu.module.scss'
 import { AppContext } from '../../layouts/baselayout'
 import { useContext } from 'react'
 const Menuitem = ({
-    icon,
     item = '',
-    href = '',
     style={},
     active= false,
     setActive,
     dispatch,
-    query
+    setShowMenu
 }) => {
 
     const handleClick = () =>{
         setActive(item.query)
-        dispatch(item.query)
+        dispatch(item)
+        setShowMenu(false)
     }
 
     return(
@@ -23,10 +22,6 @@ const Menuitem = ({
             ...style,
             
         }}>
-            <div className={styles.icon}>
-                <svg focusable="false" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
-            </div>
-            
             
             <p>{item.text}</p>
 
@@ -36,27 +31,26 @@ const Menuitem = ({
 
 
 const navItems = {
-    top: {text:'Top Stories', query: ''},
-    covid: {text:'COVID-19', query: 'covid'},
-    nigeria: {text:'NIGERIA', query: 'nigeria'},
-    world: {text:'World', query: 'world'},
-    local_news: {text:'Local News', query: 'localnews'},
-    business: {text:'Business', query: 'business'},
-    entertainment: {text:'Entertainment', query: 'entertainment'},
-    technology: {text:'Technology', query: 'technology'},
-    sports: {text:'Sports', query: 'sports'},
-    science: {text:'Science', query: 'science'},
-    health: {text:'Health', query: 'health'},
+    top: {text:'Top Stories', query: '', twitter: 'BBCBreaking'},
+    covid: {text:'COVID-19', query: 'covid', twitter: 'COVID19Tracking'},
+    nigeria: {text:'NIGERIA', query: 'nigeria', twitter: 'Naija_PR'},
+    world: {text:'World', query: 'world', twitter: 'CNN'},
+    local_news: {text:'Local News', query: 'localnews', twitter: 'vanguardngrnews'},
+    business: {text:'Business', query: 'business', twitter: 'business'},
+    entertainment: {text:'Entertainment', query: 'entertainment', twitter: 'EW'},
+    technology: {text:'Technology', query: 'technology', twitter: 'BBCTech'},
+    sports: {text:'Sports', query: 'sports', twitter: 'SportsCenter'},
+    science: {text:'Science', query: 'science', twitter: 'BBCTech'},
+    health: {text:'Health', query: 'health', twitter: 'WHO'},
 
 }
 
-const Menu = () => {
+const Menu = ({
+    setShowMenu
+}) => {
     const appContext = useContext(AppContext)
     const [active,setActive] = useState(appContext.state.newsApiQuery)
-    
-
-
-    
+        
     return(
         <div className={styles.menu + ' animate__animated animate__bounceInLeft'} data-aos="fade-right">
 
@@ -66,7 +60,7 @@ const Menu = () => {
                         <Menuitem
                             key={index} 
                             item={item} 
-                            active={active === item.query} 
+                            active={active.query === item.query} 
                             setActive={setActive}
                             dispatch={appContext.dispatch}
                             style={{
@@ -75,6 +69,7 @@ const Menu = () => {
                                 borderBottom: '0.5px solid white',
                                 borderRadius: '0'
                             }}
+                            setShowMenu={setShowMenu}
                         />
                     )
 
@@ -82,9 +77,10 @@ const Menu = () => {
                         <Menuitem
                             key={index} 
                             item={item} 
-                            active={active === item.query} 
+                            active={active.query === item.query} 
                             setActive={setActive}
                             dispatch={appContext.dispatch}
+                            setShowMenu={setShowMenu}
                         />
                     )
                 })

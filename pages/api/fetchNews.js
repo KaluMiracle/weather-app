@@ -10,7 +10,6 @@ export default async function fetchNews(query) {
   const URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json'
   // const URL = 'https://api.nytimes.com/svc/topstories/v2/'
   try{
-    console.log("fetching news")
     const {data} = await axios.get(URL ,{
       params: {
         q: query,
@@ -21,7 +20,6 @@ export default async function fetchNews(query) {
     return data;
   }
   catch(error){
-    console.log("errorrr: " + error)
     return "can't fetch weather info at the moment"
   }
 

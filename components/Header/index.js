@@ -14,7 +14,11 @@ const Header = ({
         <div className={styles.header}>
             
             <div className={styles.icon} onClick={()=>setShowMenu(!showMenu)}>
-                <svg focusable="false" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+                <svg focusable="false" viewBox="0 0 24 24"  style={{
+                    fill: showMenu ? "#2a41659d" : 'white'
+                }}>
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+                </svg>
             </div>
 
             {/* <div className={styles.icon}>
@@ -24,10 +28,16 @@ const Header = ({
                 </svg>
             </div> */}
 
+            <div style={{
+                width: '90%',
+                display: 'flex',
+                justifyContent: 'space-between'
+            }}>
+                <h1>News</h1>
+                <p className={styles.smallText}>Powered by New York Times API</p>
+            </div>
             
-            <h1>News</h1>
             <div className={styles.search_container}>
-
             </div>
         </div>
     )
